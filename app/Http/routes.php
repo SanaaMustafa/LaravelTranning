@@ -15,10 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
 
-Route::get('/home', 'HomeController@index');
 
-Route::get('/posts','Postscontroller@allposts');
-Route::get('/posts/{id}','Postscontroller@singlepost');
+Route::resource('/admin','PostController@admin');
+Route::resource('/posts/','PostController');
 Route::get('/auther/{id}','AuthersController@sigleauther');
