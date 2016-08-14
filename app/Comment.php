@@ -14,7 +14,10 @@ protected $primaryKey='id';
 protected $table='comments';
 
     
+public function post(){
 
+	return $this->belongsTo('Post');
+}
     public function users()
     {
         return $this->hasMany('User');

@@ -42,13 +42,13 @@ h3{
                 	</tr>
                 	@foreach($posts as $post)
                 	<tr>
-                		<form action="posts/{{$post->id}}/" method="POST">
-                			{!!csrf_field()!!}
-                			<input type="hidden" name="_method" value="PATCH" />
-                			<td><input type="text" name="title" value="{{$post->title}}"></td>
-                			<td><button class="btn btn-success" type="submit">Update</button></td>
+                		
+                			
+                			
+                			<td>{{$post->title}}</td>
+                			<td><a href="{{ route('posts.update', $post->id) }}"><button class="btn btn-success" type="submit">Update</button></a></td>
 
-                		</form>
+                		
                 		<td>
                 			<form action="posts/{{$post->id}}/" method="POST">
                 			{!!csrf_field()!!}

@@ -5,26 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Comment;
 use App\Post;
-
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         //
-        
-        $posts=Post::all();
-        return view('posts.list',['posts'=>$posts]);
     }
 
     /**
@@ -46,24 +38,26 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
-        $title=$request->input('title');
-        $body=$request->input('body');
-        $url="plz";
+        $this->validate($request, array(
+            
+            
+            'content'   =>  'required|min:5|max:2000'
+            ));
+
+        $post = Post::find($post_id);
+
+        $comment = new Comment();
         
-        $auther_id=0;
+        
+        $comment->content = $request->content;
+        
+        $comment->post()->associate($post);
 
-        //Post::insert(['title'=>$title,'body'=>$body,'url'=>$url,'auther_id'=>$auther_id]);
-        $new_post=new Post;
-        $new_post->title=$title;
-        $new_post->body=$body;
-        $new_post->url=$url;
-        $new_post->slug = $request->slug;
+        $comment->save();
 
-        $new_post->auther_id=$auther_id;
-        $new_post->save();
+        Session::flash('success', 'Comment was added');
 
-        return redirect('admin');
-
+        return redirect()->route('posts.add', [$post->slug]);
     }
 
     /**
@@ -75,9 +69,6 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $posts=Post::find($id);
-        return view('posts.add',['posts'=>$posts]);
-       
     }
 
     /**
@@ -101,14 +92,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $title=$request->input('title');
-        $body=$request->input('body');
-        $post=Post::find($id);
-        $post->title=$title;
-        $post->body=$body;
-        $post->save();
-        return redirect('admin');
-
     }
 
     /**
@@ -120,20 +103,5 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
-        Post::destroy($id);
-        return redirect('admin');
-
-    }
-    public function admin(){
-        $posts=Post::all();
-        return view('posts.admin',['posts'=>$posts]);
-
-    }
-    public function getSingle($slug) {
-        // fetch from the DB based on slug
-        $post = Post::where('slug', '=', $slug)->first();
-
-        // return the view and pass in the post object
-        return view('posts.add')->withPost($post);
     }
 }

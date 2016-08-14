@@ -39,6 +39,7 @@ a:hover{
                 <div class="panel-body">
                     <h1><i class="fa fa-pencil" aria-hidden="true"></i>{{$post->title}}</h1>
                     <p>Created at : {{$post->created_at}}</p>
+                    <a href="{{ route('posts.add', $post->id) }}" class="btn btn-primary">Read More</a>
                     <br>
                     
                 </div>
