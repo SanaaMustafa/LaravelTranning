@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::auth();
 
-
-
-Route::resource('/admin','PostController@admin');
-Route::resource('/posts/','PostController');
+Route::resource('/admin','PostController');
+Route::get('/admin','PostController@admin');
+Route::resource('/posts','PostController');
 Route::get('/auther/{id}','AuthersController@sigleauther');

@@ -32,7 +32,7 @@ a:hover{
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="{{asset('/posts/admin')}}">Editing section (update , Add , Delete)</a></div>
+                <div class="panel-heading"><a href="{{url('/admin')}}">Editing section (update , Add , Delete)</a></div>
                 <div class="panel-heading"><center><h3>Posts</h3></center></div>
 
                 @foreach($posts as $post)
