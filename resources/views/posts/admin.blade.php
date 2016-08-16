@@ -46,7 +46,7 @@ h3{
                 			
                 			
                 			<td>{{$post->title}}</td>
-                			<td><a href="{{ route('posts.update', $post->id) }}"><button class="btn btn-success" type="submit">Update</button></a></td>
+                			<td><a href="{{ route('posts.edit', $post->id) }}"><button class="btn btn-success" type="submit">Update</button></a></td>
 
                 		
                 		<td>

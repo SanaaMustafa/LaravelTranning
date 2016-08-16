@@ -10,12 +10,12 @@
                 <div class="panel-body">
                     <h2>U are updating at {{$post->title}}</h2>
 
-                    <form action="posts/{{$post->id}}/" method="POST">
+                    <form action="{{ route('posts.update', $post->id) }}" method="POST">
                             {!!csrf_field()!!}
                             <input type="hidden" name="_method" value="PATCH" />
 
-                            <input type="text" name="title" value="{{$post->title}}"><br>
-                            <input type="text" name="body" value="{{$post->body}}"><br>
+                            <input type="text" name="title" value="{{$post->title}}" class="form-control"><br>
+                            <input type="text" name="body" value="{{$post->body}}" class="form-control"><br>
                             <button class="btn btn-success" type="submit">Update</button>
 
                         </form>

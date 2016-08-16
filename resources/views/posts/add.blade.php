@@ -8,8 +8,34 @@
     border-color: #2196F3;
     
 }
+.panel-body p{
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: blue;
+}
 h2{
     color: red;
+}
+.comment-content p{
+    color: green;
+    font-size: 2rem;
+    padding-left: 5px;
+}
+h4{
+    font-weight: bold;
+    color: red;
+
+
+}
+.comment-blok{
+    padding: 6px;
+}
+.comment{
+    background-color: grey;
+}
+.author-time {
+    
+font-size: 1rem;
 }
 h3{
     color: green;
@@ -22,48 +48,51 @@ h3{
                 <div class="panel-heading">  <center><h1>{{ $post->title }} </h1></center></div>
                 <div class="panel-body">
                     
-                    <p>{!! $post->body !!}</p>
+                   <center> <p> {{$post->body}} </p></center>
 
 
 
                 </div>
                 @foreach($post->comments as $comment)
+
                 <div class="comment">
-                    <div class="author-info">
+                    <div class="comment-blok">
+                        
+
 
                         <div class="author-name">
                             <h4>{{ $comment->user->name }}</h4>
                             <p class="author-time">{{ date('F nS, Y - g:iA' ,strtotime($comment->created_at)) }}</p>
                         </div>
+
+                        
                         
                     </div>
-
                     <div class="comment-content">
-                        <textarea>
-                        {{ $comment->content }}
-                    </textarea>
+                        
+                        <p>>>> : {{ $comment->content }}</p>
+                    
                     </div>
+
+                    
                     
                 </div>
             @endforeach
             <div class="row">
         <div id="comment-form" class="col-md-8 col-md-offset-2" style="margin-top: 50px;">
-            {{ Form::open(['route' => ['comments.store', $post->id], 'method' => 'POST']) }}
-                
-                <div class="row">
-                    
 
-                    
+          <form action="comments/{{$post->id}}" method="POST">
 
-                    <div class="col-md-12">
-                        {{ Form::label('content', "Comment:") }}
-                        {{ Form::textarea('content', null, ['class' => 'form-control', 'rows' => '5']) }}
+                {!!csrf_field()!!}
 
-                        {{ Form::submit('Add Comment', ['class' => 'btn btn-success btn-block', 'style' => 'margin-top:15px;']) }}
-                    </div>
-                </div>
+                        
+                        
+                        <h3>Write your Comment here </h3>
+                        <textarea name="content" row="50" class="form-control"></textarea><br>
+                        <button class="btn btn-success" type="submit">add</button>
+            
 
-            {{ Form::close() }}
+            </form>
         </div>
     </div>
 

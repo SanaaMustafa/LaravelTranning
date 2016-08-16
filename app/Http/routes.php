@@ -17,11 +17,13 @@ Route::auth();
 //posts with editing
 Route::resource('/admin','PostController');
 Route::get('/admin','PostController@admin');
+Route::get('posts/{id}/update',     ['as' =>'posts.update','uses' => 'PostController@update']);
+Route::get('posts/{post_id}', ['as' => 'posts.add', 'uses' => 'PostController@getSingleById']);
+//Route::get('posts/{slug}',  ['as' => 'posts.add', 'uses' => 'PostController@getSingleBySlug'])->where('slug', '[\w\d\-\_)]+');
 Route::resource('/posts','PostController');
-Route::get('posts/{slug}', ['as' => 'posts.add', 'uses' => 'PostController@getSingle'])->where('slug', '[\w\d\-\_]+');
 
 //comments
-Route::post('comments/{post_id}', ['uses' => 'CommentController@store', 'as' => 'comments.store']);
+Route::post('posts/comments/{post_id}', ['uses' => 'CommentController@store', 'as' => 'comments.store']);
 
 //authers
 Route::get('/auther/{id}','AuthersController@sigleauther');

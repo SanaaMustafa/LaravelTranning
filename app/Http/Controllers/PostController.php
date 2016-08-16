@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Post;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -57,7 +57,7 @@ class PostController extends Controller
         $new_post->title=$title;
         $new_post->body=$body;
         $new_post->url=$url;
-        $new_post->slug = $request->slug;
+    
 
         $new_post->auther_id=$auther_id;
         $new_post->save();
@@ -76,7 +76,7 @@ class PostController extends Controller
     {
         //
         $posts=Post::find($id);
-        return view('posts.add',['posts'=>$posts]);
+        return view('posts.add',['post'=>$posts]);
        
     }
 
@@ -89,6 +89,8 @@ class PostController extends Controller
     public function edit($id)
     {
         //
+        $posts=Post::find($id);
+        return view('posts.update',['post'=>$posts]);
     }
 
     /**
@@ -129,11 +131,19 @@ class PostController extends Controller
         return view('posts.admin',['posts'=>$posts]);
 
     }
-    public function getSingle($slug) {
+
+    public function getSingleById($post_id) {
+        // fetch from the DB based on slug
+        $post = Post::find($post_id);
+        
+        return view('posts.add',['post'=>$post]);
+    }
+
+    public function getSingleBySlug($slug) {
         // fetch from the DB based on slug
         $post = Post::where('slug', '=', $slug)->first();
+        dd($post);
 
-        // return the view and pass in the post object
-        return view('posts.add')->withPost($post);
+        return view('posts.add',['post'=>$post]);
     }
 }
